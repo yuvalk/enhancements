@@ -1,14 +1,16 @@
 ---
-title: neat-enhancement-idea
+title: automatically-provide-communication-matrix
 authors:
-  - TBD
+  - lack
+  - yuvalk
 reviewers: # Include a comment about what domain expertise a reviewer is expected to bring and what area of the enhancement you expect them to focus on. For example: - "@networkguru, for networking aspects, please look at IP bootstrapping aspect"
-  - TBD
+# experties: origin-tests, node-firewall, networking
+#TODO: fill the reviewers properly
 approvers:
   - TBD
 api-approvers: # In case of new or modified APIs or API extensions (CRDs, aggregated apiservers, webhooks, finalizers). If there is no API change, use "None"
   - TBD
-creation-date: yyyy-mm-dd
+creation-date: 2023-03-21
 last-updated: yyyy-mm-dd
 tracking-link: # link to the tracking ticket (for example: Jira Feature or Epic ticket) that corresponds to this enhancement
   - TBD
@@ -42,33 +44,22 @@ See ../README.md for background behind these instructions.
 
 Start by filling out the header with the metadata for this enhancement.
 
-# Neat Enhancement Idea
-
-This is the title of the enhancement. Keep it simple and descriptive. A good
-title can help communicate what the enhancement is and should be considered as
-part of any review.
-
-The YAML `title` should be lowercased and spaces/punctuation should be
-replaced with `-`.
-
-The `Metadata` section above is intended to support the creation of tooling
-around the enhancement process.
+# Automatically provide communication matrix
 
 ## Summary
 
-The `Summary` section is incredibly important for producing high quality
-user-focused documentation such as release notes or a development roadmap. It
-should be possible to collect this information before implementation begins in
-order to avoid requiring implementors to split their attention between writing
-release notes and implementing the feature itself.
+enhance openshift so that every release automatically include a communication matrix that can be consumed by internal or external firewalls, is accurate and up-to-date.
+one-click node-firewall configuration feature.
+and one-click to generate an accurate, relevant, matrix for the running cluster.
 
-A good summary is no more than one paragraph in length. More detail
-should go into the following sections.
+# TODO: improve summary
 
 ## Motivation
 
-This section is for explicitly listing the motivation, goals and non-goals of
-this proposal. Describe why the change is important and the benefits to users.
+1. Customers and Partners are asking for it..
+2. They want to be able to use the information to better secure their clusters
+
+# TODO: consider whether we want to propose only the first phase, and worry about the rest later?
 
 ### User Stories
 
@@ -126,6 +117,12 @@ this has succeeded?  A good goal describes something a user wants from
 their perspective, and does not include the implementation details
 from the proposal.
 
+1. an accurate communication matrix documentation
+2. "one-click" node-firewall configuration feature. (`flow-protection: true`)
+3. and one-click (from ui?) to generate an accurate, relevant, matrix for the running cluster.
+
+matrix should cover core openshift and all operators
+
 ### Non-Goals
 
 What is out of scope for this proposal? Listing non-goals helps to
@@ -142,6 +139,23 @@ different. Include the reason for each choice in the design and
 implementation that is proposed here, and expand on reasons for not
 choosing alternatives in the Alternatives section at the end of the
 document.
+
+### phase 1: Openshift core only, MNO only, ingress (listening) only
+we start with an empty firewall configuation structure.
+enable the firewall at the begining of origin-tests run
+and then start adding configuration till all tests passes.
+
+we will also add another test, after cluster is configured to pull all tcp and udp listening ports and compare them with that firewall structure. that test can simply issue a `ss` command on each node (or at least on one master and one worker)
+
+then we can use the information gather to produce the actual matrix.
+
+to verify we never diverge and to keep the communication flow document up to date we propose it will be generated content (ie - not commited to the openshift-docs repo)
+
+### phases XXXX
+
+### Phase operators: infrastructure for operators comm matrix
+each operator would provide it's own communication matrix in a similar consumable strucutre.
+each operator will need to introduce a similar test into 
 
 ### Workflow Description
 
