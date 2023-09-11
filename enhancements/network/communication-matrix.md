@@ -132,13 +132,17 @@ enhancement.
 
 ## Proposal
 
-This is where we get down to the nitty gritty of what the proposal
-actually is. Describe clearly what will be changed, including all of
-the components that need to be modified and how they will be
-different. Include the reason for each choice in the design and
-implementation that is proposed here, and expand on reasons for not
-choosing alternatives in the Alternatives section at the end of the
-document.
+1. enhance machine api to include port info about non-k8s services (ie - sshd)
+2. use that info to populate EndpointSlices for these too
+3. we also assume every cluster service, that is using hostNetwork, is already declaring it's ports
+4. then that information can be used to query EndpointSlices to get the info about ports that should be allowed
+5. this info can be used by `oc` to generate a matrix from runtime
+6. this info can be used by node firewall to configure the firewall
+
+### EndpointSlices query logic
+1. slices that belongs to pods running with `hostNetworking=true`
+2. slices that belong to the host (filtered via label)
+
 
 ### phase 1: Openshift core only, MNO only, ingress (listening) only
 we start with an empty firewall configuation structure.
