@@ -52,7 +52,7 @@ enhance openshift so that every release automatically include a communication ma
 one-click node-firewall configuration feature.
 and one-click to generate an accurate, relevant, matrix for the running cluster.
 
-# TODO: improve summary
+> TODO: improve summary
 
 ## Motivation
 
