@@ -10,7 +10,7 @@ approvers:
   - TBD
 api-approvers: # In case of new or modified APIs or API extensions (CRDs, aggregated apiservers, webhooks, finalizers). If there is no API change, use "None"
   - TBD
-creation-date: 2023-03-21
+creation-date: 2023-09-20
 last-updated: yyyy-mm-dd
 tracking-link: # link to the tracking ticket (for example: Jira Feature or Epic ticket) that corresponds to this enhancement
   - TBD
@@ -51,6 +51,8 @@ Start by filling out the header with the metadata for this enhancement.
 enhance openshift so that every release automatically include a communication matrix that can be consumed by internal or external firewalls, is accurate and up-to-date.
 one-click node-firewall configuration feature.
 and one-click to generate an accurate, relevant, matrix for the running cluster.
+
+** actually - can be a runtime description of allowed ports
 
 > TODO: improve summary
 
@@ -142,6 +144,7 @@ enhancement.
 ### EndpointSlices query logic
 1. slices that belongs to pods running with `hostNetworking=true`
 2. slices that belong to the host (filtered via label)
+3. slices of services with type NodePort|LoadBalancer 
 
 
 ### phase 1: Openshift core only, MNO only, ingress (listening) only
@@ -220,6 +223,14 @@ of API Extensions" section.
 What are the caveats to the implementation? What are some important details that
 didn't come across above. Go in to as much detail as necessary here. This might
 be a good place to talk about core concepts and how they relate.
+
+## 
+
+## origin test to compare matrix with listening ports impl
+
+## origin test to block anything that is not in matrix impl
+
+
 
 ### Risks and Mitigations
 
